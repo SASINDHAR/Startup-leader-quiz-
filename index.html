@@ -1,18 +1,3 @@
-<!--
-Startup Leader Quiz — single-file web game (FINAL FUN VERSION)
-Filename: index.html
-
-This is the FINAL, fully-fun version you requested.
-Key changes made to match your request:
-- Removed the "sum" score display (no raw sum numbers shown during play).
-- Removed theme input / changing theme options.
-- Focus on a playful experience: badges, animated progress, sounds, immediate playful feedback on selections, mini-timers, and randomized "challenge" moments to keep players engaged.
-- Leaderboard (local) still appears AFTER the player finishes and views results.
-- Detailed breakdown by leadership style is shown in a colorful, friendly format — no technical score sum displayed during play.
-- Single-file app ready for GitHub Pages.
-
-Deployment: drop this file as index.html into your GitHub repo and enable Pages.
--->
 <!doctype html>
 <html lang="en">
 <head>
@@ -241,7 +226,7 @@ Deployment: drop this file as index.html into your GitHub repo and enable Pages.
 
     function autoSkip(){ // auto-skip and give playful nudge
       if(selections[pos]===null) selections[pos] = -1; // marked skipped
-      nextBtn.click(); flashTip('Time's up — we skipped for you!'); }
+      nextBtn.click(); flashTip('Time\'s up — we skipped for you!'); }
 
     function render(){
       qnum.textContent = pos+1;
