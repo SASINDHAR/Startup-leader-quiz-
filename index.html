@@ -1,21 +1,36 @@
+<!--
+Startup Leader Quiz — single-file web game (THEME + SCOREBOARD AFTER FINISH)
+Filename: index.html
 
+Changes in this version (as requested):
+- The local leaderboard (scoreboard) now appears ONLY after the player clicks Finish and views results.
+- Theme system: enter a "Presentation Title / Theme Name" at the top — the app generates a color palette from that title and applies it to the UI.
+  * You can type any title (e.g., "Leadership Styles Workshop") and the page colors update to match the generated theme.
+- Leaderboard save/export/import remains, but is only visible after finishing the quiz.
+- Small accessibility and UX improvements.
+
+Deployment: drop into a GitHub Pages repository as index.html and enable Pages.
+-->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Are You Ready to Start a Startup? — Leadership Quiz (Full Updated)</title>
+  <title>Are You Ready to Start a Startup? — Leadership Quiz (Theme + Scoreboard)</title>
   <style>
-    :root{--bg:#071029;--card:#071625;--accent:#7c3aed;--accent2:#06b6d4;--muted:#9aa4b2;--glass: rgba(255,255,255,0.03)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(135deg,#031029 0%, #041624 50%, #02121a 100%);}
+    :root{--bg:#031029;--card:#071625;--accent:#7c3aed;--accent2:#06b6d4;--muted:#9aa4b2;--glass: rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(135deg,var(--bg) 0%, #041624 50%, #02121a 100%);}    
     .wrap{max-width:980px;margin:28px auto;padding:18px}
-    header{display:flex;align-items:center;gap:14px}
+    header{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
     .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;box-shadow:0 6px 20px rgba(5,8,15,0.6)}
     h1{font-size:20px;margin:0}
     p.lead{color:var(--muted);margin:6px 0 16px}
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
 
-    .question-area{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .themeRow{display:flex;gap:10px;align-items:center;margin-left:auto}
+    .themeInput{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:inherit}
+
+    .question-area{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:12px}
     .qbox{padding:12px;border-radius:10px;background:var(--card)}
     .options{display:flex;flex-direction:column;gap:10px;margin-top:12px}
     .opt{background:var(--glass);padding:12px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.02);transition:transform .12s ease,box-shadow .12s}
@@ -48,10 +63,15 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="logo">SL</div>
+      <div class="logo" id="logo">SL</div>
       <div>
-        <h1>Are You Ready to Start a Startup? — Leadership Quiz</h1>
-        <p class="lead">Interactive quiz with detailed final scoring, breakdown, and a local leaderboard. Drop into GitHub Pages to share with students.</p>
+        <h1 id="titleText">Are You Ready to Start a Startup? — Leadership Quiz</h1>
+        <p class="lead">Interactive quiz with detailed final scoring, breakdown, and a local leaderboard (visible after Finish). Use GitHub Pages to host.</p>
+      </div>
+
+      <div class="themeRow">
+        <input id="themeInput" class="themeInput" placeholder="Enter presentation title / theme" />
+        <button class="btn small" id="applyThemeBtn">Apply Theme</button>
       </div>
     </header>
 
@@ -89,7 +109,7 @@
 
             <div class="breakdown" id="breakdown"></div>
 
-            <div class="leader">
+            <div id="leaderboardWrapper" class="leader" style="display:none">
               <strong>Local leaderboard</strong>
               <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
                 <input id="playerName" placeholder="Your name" class="small" style="flex:1" />
@@ -117,6 +137,18 @@
   </div>
 
   <script>
+    // helper: simple color palette generator from a string (hash)
+    function hashString(str){ let h=0; for(let i=0;i<str.length;i++){ h = (h<<5) - h + str.charCodeAt(i); h |= 0; } return Math.abs(h); }
+    function paletteFromTitle(title){ if(!title) return ['#7c3aed','#06b6d4','#f97316','#0ea5a4']; const h = hashString(title); const a = ['#7c3aed','#ef4444','#06b6d4','#f97316','#10b981','#6366f1','#f43f5e']; const base = a[h % a.length]; const sec = a[(h+2) % a.length]; const third = a[(h+4) % a.length]; return [base, sec, third]; }
+
+    function applyThemeFromTitle(title){ const p = paletteFromTitle(title); document.documentElement.style.setProperty('--accent', p[0]); document.documentElement.style.setProperty('--accent2', p[1] || p[0]); document.documentElement.style.setProperty('--bg', shadeHex(p[2] || p[1], -30)); // darker bg
+      // update header title and logo
+      document.getElementById('titleText').textContent = title || 'Are You Ready to Start a Startup? — Leadership Quiz';
+      document.getElementById('logo').style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]||p[0]})`;
+    }
+    // tiny hex shade
+    function shadeHex(hex, percent){ try{ const f = hex.slice(1), t = percent<0?0:255, p = percent<0?percent*-1:percent; const R = parseInt(f.substring(0,2),16), G = parseInt(f.substring(2,4),16), B = parseInt(f.substring(4,6),16); const newR = Math.round((t - R) * p/100) + R; const newG = Math.round((t - G) * p/100) + G; const newB = Math.round((t - B) * p/100) + B; return `#${(0x1000000 + (newR<<16) + (newG<<8) + newB).toString(16).slice(1)}` }catch(e){ return hex; } }
+
     // Data: 7 scenarios
     const questions = [
       {q: "Your team misses an important deadline. What do you do?",
@@ -190,6 +222,7 @@
     const resultTitle = document.getElementById('resultTitle');
     const resultText = document.getElementById('resultText');
     const breakdownEl = document.getElementById('breakdown');
+    const leaderboardWrapper = document.getElementById('leaderboardWrapper');
 
     const playerName = document.getElementById('playerName');
     const saveScoreBtn = document.getElementById('saveScoreBtn');
@@ -198,6 +231,9 @@
     const importBtn = document.getElementById('importBtn');
     const importFile = document.getElementById('importFile');
     const clearBtn = document.getElementById('clearBtn');
+
+    const themeInput = document.getElementById('themeInput');
+    const applyThemeBtn = document.getElementById('applyThemeBtn');
 
     function render(){
       qnum.textContent = pos+1;
@@ -212,9 +248,12 @@
         optionsEl.appendChild(div);
       });
       bar.style.width = `${(pos/total)*100}%`;
-      resultBox.style.display='none';
+      resultBox.style.display='none'; leaderBoardHide();
       updateTip();
     }
+
+    function leaderBoardShow(){ leaderboardWrapper.style.display='block'; renderLeaderboard(); }
+    function leaderBoardHide(){ leaderboardWrapper.style.display='none'; }
 
     function updateTip(){
       const tips = [
@@ -225,8 +264,7 @@
         'Junior hires need a mix of guidance and ownership.',
         'Negative feedback is a learning chance — who drives it?',
         'Autonomy works if people are ready; be practical.'
-      ]; tip.textContent = tips[pos] || '';
-    }
+      ]; document.getElementById('tip').textContent = tips[pos] || ''; }
 
     function updateScore(){
       const perStyle = {A:0,B:0,C:0,D:0};
@@ -275,7 +313,7 @@
         const barWrap = document.createElement('div'); barWrap.className='barSmall';
         const inner = document.createElement('i'); inner.style.width = percent + '%'; inner.style.background = s.color; inner.style.display='block'; barWrap.appendChild(inner);
         wrapper.appendChild(barWrap);
-        const rec = document.createElement('div'); rec.style.fontSize='13px'; rec.style.color='rgba(255,255,255,0.85)'; rec.style.marginTop='6px';
+        const rec = document.createElement('div'); rec.style.fontSize='13px'; rec.style.color='rgba(255,255,255,0.95)'; rec.style.marginTop='6px';
         rec.textContent = recommendationFor(s.k,count,percent);
         wrapper.appendChild(rec);
         breakdownEl.appendChild(wrapper);
@@ -283,6 +321,9 @@
 
       // store last result for sharing
       window.lastResult = {score:totalScore, perStyle, title, text};
+
+      // show leaderboard now (user requested scoreboard after finish)
+      leaderBoardShow();
     }
 
     function recommendationFor(k,count,percent){
@@ -307,9 +348,7 @@
 
     // Leaderboard functions (localStorage)
     const LS_KEY = 'startup_quiz_leaderboard_v1';
-    function loadLeaderboard(){
-      try{ const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ return []; }
-    }
+    function loadLeaderboard(){ try{ const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ return []; } }
     function saveLeaderboard(list){ localStorage.setItem(LS_KEY, JSON.stringify(list)); }
     function renderLeaderboard(){ const list = loadLeaderboard(); leaderTableBody.innerHTML = ''; list.sort((a,b)=>b.score - a.score); list.forEach(r=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${escapeHtml(r.name)}</td><td>${r.score}</td><td>${r.type}</td><td>${new Date(r.when).toLocaleString()}</td>`; leaderTableBody.appendChild(tr); }); }
 
@@ -327,10 +366,15 @@
     clearBtn.addEventListener('click', ()=>{ if(confirm('Clear the local leaderboard?')){ saveLeaderboard([]); renderLeaderboard(); } });
 
     // utilities
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+    function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[m]; }); }
+
+    // theme handlers
+    applyThemeBtn.addEventListener('click', ()=>{ const t = (themeInput.value || '').trim(); applyThemeFromTitle(t); localStorage.setItem('startup_quiz_theme_title', t); });
+    // load saved theme
+    (function(){ const saved = localStorage.getItem('startup_quiz_theme_title'); if(saved){ themeInput.value = saved; applyThemeFromTitle(saved); } })();
 
     // initial render
-    render(); renderLeaderboard(); updateScore();
+    render(); updateScore();
 
     // keyboard shortcuts
     document.addEventListener('keydown', (e)=>{
@@ -340,7 +384,7 @@
     });
 
     // onboarding copy invite
-    (function onboarding(){ if(localStorage.getItem('seenStartupQuizV2')) return; setTimeout(()=>{ if(confirm('This updated quiz now saves a local leaderboard. Want quick GitHub Pages steps copied to clipboard?')){ navigator.clipboard.writeText('Create a GitHub repo, add index.html, enable Pages -> main branch root.'); alert('Copied!'); } localStorage.setItem('seenStartupQuizV2','1'); },600); })();
+    (function onboarding(){ if(localStorage.getItem('seenStartupQuizV3')) return; setTimeout(()=>{ if(confirm('Tip: Type a presentation title and click Apply Theme to change the quiz colors. Want quick GitHub Pages steps copied to clipboard?')){ navigator.clipboard.writeText('Create a GitHub repo, add index.html, enable Pages -> main branch root.'); alert('Copied!'); } localStorage.setItem('seenStartupQuizV3','1'); },600); })();
   </script>
 </body>
 </html>
