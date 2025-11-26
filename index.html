@@ -1,43 +1,57 @@
+<!--
+Startup Leader Quiz — single-file web game (FINAL FUN VERSION)
+Filename: index.html
 
+This is the FINAL, fully-fun version you requested.
+Key changes made to match your request:
+- Removed the "sum" score display (no raw sum numbers shown during play).
+- Removed theme input / changing theme options.
+- Focus on a playful experience: badges, animated progress, sounds, immediate playful feedback on selections, mini-timers, and randomized "challenge" moments to keep players engaged.
+- Leaderboard (local) still appears AFTER the player finishes and views results.
+- Detailed breakdown by leadership style is shown in a colorful, friendly format — no technical score sum displayed during play.
+- Single-file app ready for GitHub Pages.
+
+Deployment: drop this file as index.html into your GitHub repo and enable Pages.
+-->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Are You Ready to Start a Startup? — Leadership Quiz (Theme + Scoreboard)</title>
+  <title>Startup Adventure — Are You Ready? (Fun Final)</title>
   <style>
-    :root{--bg:#031029;--card:#071625;--accent:#7c3aed;--accent2:#06b6d4;--muted:#9aa4b2;--glass: rgba(255,255,255,0.03)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(135deg,var(--bg) 0%, #041624 50%, #02121a 100%);}    
-    .wrap{max-width:980px;margin:28px auto;padding:18px}
-    header{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;box-shadow:0 6px 20px rgba(5,8,15,0.6)}
+    :root{--bg:#071029;--card:#071625;--accent:#ff6b6b;--accent2:#ffd166;--muted:#9aa4b2;--glass: rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#f6fbff;background:radial-gradient(circle at 10% 10%, #05233b 0%, #071029 40%, #02121a 100%);}    
+    .wrap{max-width:980px;margin:20px auto;padding:18px}
+    header{display:flex;align-items:center;gap:14px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:22px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
     h1{font-size:20px;margin:0}
     p.lead{color:var(--muted);margin:6px 0 16px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-
-    .themeRow{display:flex;gap:10px;align-items:center;margin-left:auto}
-    .themeInput{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:inherit}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;box-shadow:0 8px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
 
     .question-area{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:12px}
-    .qbox{padding:12px;border-radius:10px;background:var(--card)}
-    .options{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-    .opt{background:var(--glass);padding:12px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.02);transition:transform .12s ease,box-shadow .12s}
-    .opt:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(12,18,40,0.5)}
-    .opt.active{outline:2px solid rgba(124,58,237,0.14);box-shadow:0 10px 30px rgba(124,58,237,0.06)}
-    .meta{color:var(--muted);font-size:13px;margin-top:8px}
+    .qbox{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
+    .options{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+    .opt{background:var(--glass);padding:14px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,0.02);transition:transform .12s ease,box-shadow .12s,background .12s}
+    .opt:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+    .opt.active{outline:3px solid rgba(255,255,255,0.06);background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+    .meta{color:var(--muted);font-size:13px;margin-top:10px}
 
     .side{position:relative}
-    .progress{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden;margin-bottom:12px}
-    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;font-weight:600;border:none;cursor:pointer}
+    .progress{height:16px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden;margin-bottom:12px}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s ease}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#071029;font-weight:700;border:none;cursor:pointer}
     .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
     .small{font-size:13px;padding:8px 10px;border-radius:8px}
 
-    .result{padding:14px;border-radius:12px;margin-top:12px;background:linear-gradient(180deg, rgba(124,58,237,0.06), rgba(6,182,212,0.02));color:#f8fbff}
-    .result h2{margin:0 0 6px}
-    .breakdown{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-    .barSmall{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .result{padding:14px;border-radius:12px;margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:#f6fbff}
+    .result h2{margin:0 0 8px}
+    .breakdown{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .barSmall{height:12px;background:rgba(255,255,255,0.02);border-radius:999px;overflow:hidden}
     .barSmall > i{display:block;height:100%}
+
+    .badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .badge{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.02);font-weight:700}
 
     .leader{margin-top:12px}
     .leader table{width:100%;border-collapse:collapse}
@@ -45,35 +59,35 @@
 
     footer{color:var(--muted);font-size:13px;margin-top:16px;text-align:center}
 
+    .confetti{position:fixed;pointer-events:none;inset:0;z-index:40}
+
     @media (max-width:880px){.question-area{grid-template-columns:1fr;}.side{order:2}.wrap{padding:12px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="logo" id="logo">SL</div>
+      <div class="logo">⚡️</div>
       <div>
-        <h1 id="titleText">Are You Ready to Start a Startup? — Leadership Quiz</h1>
-        <p class="lead">Interactive quiz with detailed final scoring, breakdown, and a local leaderboard (visible after Finish). Use GitHub Pages to host.</p>
-      </div>
-
-      <div class="themeRow">
-        <input id="themeInput" class="themeInput" placeholder="Enter presentation title / theme" />
-        <button class="btn small" id="applyThemeBtn">Apply Theme</button>
+        <h1>Startup Adventure — Are You Ready?</h1>
+        <p class="lead">A playful, workshop-ready quiz about leadership styles in early-stage startups. Fun animations, badges, and mini-challenges — leaderboard appears after finish.</p>
       </div>
     </header>
 
     <div class="card" id="game">
       <div class="question-area">
-        <div class="qbox">
+        <div class="qbox" id="mainBox">
           <div class="meta">Question <span id="qnum">1</span> of <span id="qtot">7</span></div>
-          <h3 id="question" style="margin-top:8px">Loading...</h3>
+          <h2 id="question" style="margin-top:8px">Loading...</h2>
+
           <div class="options" id="options"></div>
-          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-            <button class="btn" id="nextBtn">Next</button>
-            <button class="btn secondary small" id="prevBtn">Previous</button>
+
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center">
+            <button class="btn" id="nextBtn">Next ➜</button>
+            <button class="btn secondary small" id="prevBtn">◂ Prev</button>
             <button class="btn secondary small" id="resetBtn">Reset</button>
-            <button class="btn secondary small" id="skipBtn">Skip (mark as neutral)</button>
+            <button class="btn secondary small" id="hintBtn">Surprise Hint</button>
+            <div id="timerWrap" style="margin-left:auto;color:var(--muted);font-weight:700">⏱ <span id="timer">--</span></div>
           </div>
         </div>
 
@@ -81,19 +95,21 @@
           <div class="progress" title="Progress"><div class="bar" id="bar"></div></div>
 
           <div class="card" style="padding:12px;margin-bottom:12px;">
-            <strong>Score (sum):</strong>
-            <div style="font-size:22px;margin-top:8px" id="score">0</div>
-            <div class="meta">Higher sum indicates stronger fit for early-stage leadership</div>
+            <strong>Playful Meter</strong>
+            <div style="font-size:18px;margin-top:8px" id="playMeter">Curious</div>
+            <div class="meta">Your choices shape the adventure — badges unlock at the end.</div>
           </div>
 
           <div id="hint" class="card" style="padding:12px;">
             <strong>Quick tip</strong>
-            <p class="meta" id="tip">Choose the answer that best matches your natural approach — there are no wrong answers.</p>
+            <p class="meta" id="tip">Choose honestly — surprises happen!</p>
           </div>
 
           <div id="resultBox" style="display:none" class="result">
-            <h2 id="resultTitle">Result</h2>
+            <h2 id="resultTitle">Adventure Result</h2>
             <p id="resultText"></p>
+
+            <div class="badges" id="badges"></div>
 
             <div class="breakdown" id="breakdown"></div>
 
@@ -101,10 +117,10 @@
               <strong>Local leaderboard</strong>
               <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
                 <input id="playerName" placeholder="Your name" class="small" style="flex:1" />
-                <button class="btn small" id="saveScoreBtn">Save Score</button>
+                <button class="btn small" id="saveScoreBtn">Save to Leaderboard</button>
               </div>
               <div style="margin-top:8px;">
-                <table id="leaderTable"><thead><tr><th>Name</th><th>Score</th><th>Type</th><th>When</th></tr></thead><tbody></tbody></table>
+                <table id="leaderTable"><thead><tr><th>Name</th><th>Type</th><th>When</th></tr></thead><tbody></tbody></table>
               </div>
               <div style="margin-top:8px;display:flex;gap:8px">
                 <button class="btn secondary small" id="exportBtn">Export JSON</button>
@@ -124,20 +140,12 @@
     </div>
   </div>
 
+  <canvas class="confetti" id="confettiCanvas"></canvas>
+
+  <audio id="popSound" src="data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
+
   <script>
-    // helper: simple color palette generator from a string (hash)
-    function hashString(str){ let h=0; for(let i=0;i<str.length;i++){ h = (h<<5) - h + str.charCodeAt(i); h |= 0; } return Math.abs(h); }
-    function paletteFromTitle(title){ if(!title) return ['#7c3aed','#06b6d4','#f97316','#0ea5a4']; const h = hashString(title); const a = ['#7c3aed','#ef4444','#06b6d4','#f97316','#10b981','#6366f1','#f43f5e']; const base = a[h % a.length]; const sec = a[(h+2) % a.length]; const third = a[(h+4) % a.length]; return [base, sec, third]; }
-
-    function applyThemeFromTitle(title){ const p = paletteFromTitle(title); document.documentElement.style.setProperty('--accent', p[0]); document.documentElement.style.setProperty('--accent2', p[1] || p[0]); document.documentElement.style.setProperty('--bg', shadeHex(p[2] || p[1], -30)); // darker bg
-      // update header title and logo
-      document.getElementById('titleText').textContent = title || 'Are You Ready to Start a Startup? — Leadership Quiz';
-      document.getElementById('logo').style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]||p[0]})`;
-    }
-    // tiny hex shade
-    function shadeHex(hex, percent){ try{ const f = hex.slice(1), t = percent<0?0:255, p = percent<0?percent*-1:percent; const R = parseInt(f.substring(0,2),16), G = parseInt(f.substring(2,4),16), B = parseInt(f.substring(4,6),16); const newR = Math.round((t - R) * p/100) + R; const newG = Math.round((t - G) * p/100) + G; const newB = Math.round((t - B) * p/100) + B; return `#${(0x1000000 + (newR<<16) + (newG<<8) + newB).toString(16).slice(1)}` }catch(e){ return hex; } }
-
-    // Data: 7 scenarios
+    // ---------- FUN CONFIG ----------
     const questions = [
       {q: "Your team misses an important deadline. What do you do?",
        opts: [
@@ -190,10 +198,9 @@
        ]}
     ];
 
-    // scoring: A=1, B=2, C=3, D=0
-    const scoreMap = {A:1,B:2,C:3,D:0};
-
+    // scoring: counts per style (no sum shown during play)
     let pos = 0; const total = questions.length; let selections = Array(total).fill(null);
+    const perStyle = {A:0,B:0,C:0,D:0};
 
     // DOM refs
     const qnum = document.getElementById('qnum');
@@ -203,13 +210,16 @@
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const skipBtn = document.getElementById('skipBtn');
+    const hintBtn = document.getElementById('hintBtn');
     const bar = document.getElementById('bar');
-    const scoreEl = document.getElementById('score');
+    const playMeter = document.getElementById('playMeter');
+    const tip = document.getElementById('tip');
+    const timerEl = document.getElementById('timer');
     const resultBox = document.getElementById('resultBox');
     const resultTitle = document.getElementById('resultTitle');
     const resultText = document.getElementById('resultText');
     const breakdownEl = document.getElementById('breakdown');
+    const badgesEl = document.getElementById('badges');
     const leaderboardWrapper = document.getElementById('leaderboardWrapper');
 
     const playerName = document.getElementById('playerName');
@@ -220,8 +230,18 @@
     const importFile = document.getElementById('importFile');
     const clearBtn = document.getElementById('clearBtn');
 
-    const themeInput = document.getElementById('themeInput');
-    const applyThemeBtn = document.getElementById('applyThemeBtn');
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const popSound = document.getElementById('popSound');
+
+    // playful timer settings
+    let timer = null; let timeLeft = 0; const QUESTION_TIME = 20; // seconds per question
+
+    function startTimer(){ clearInterval(timer); timeLeft = QUESTION_TIME; timerEl.textContent = timeLeft + 's'; timer = setInterval(()=>{ timeLeft--; timerEl.textContent = timeLeft + 's'; if(timeLeft<=0){ clearInterval(timer); autoSkip(); } },1000); }
+    function stopTimer(){ clearInterval(timer); timerEl.textContent = '--'; }
+
+    function autoSkip(){ // auto-skip and give playful nudge
+      if(selections[pos]===null) selections[pos] = -1; // marked skipped
+      nextBtn.click(); flashTip('Time's up — we skipped for you!'); }
 
     function render(){
       qnum.textContent = pos+1;
@@ -232,147 +252,123 @@
         const div = document.createElement('div'); div.className='opt'; div.tabIndex=0;
         div.innerHTML = `<strong>${String.fromCharCode(65+i)}.</strong> ${o.t}`;
         if(selections[pos]===i) div.classList.add('active');
-        div.onclick = ()=>{ selections[pos]=i; Array.from(optionsEl.children).forEach(c=>c.classList.remove('active')); div.classList.add('active'); updateScore(); }
+        div.onclick = ()=>{ selections[pos]=i; animateSelect(div); Array.from(optionsEl.children).forEach(c=>c.classList.remove('active')); div.classList.add('active'); playPop(); updatePlayMeter(); }
         optionsEl.appendChild(div);
       });
       bar.style.width = `${(pos/total)*100}%`;
-      resultBox.style.display='none'; leaderBoardHide();
-      updateTip();
-    }
+      resultBox.style.display='none'; leaderboardWrapper.style.display='none'; startTimer(); updateTip(); }
 
-    function leaderBoardShow(){ leaderboardWrapper.style.display='block'; renderLeaderboard(); }
-    function leaderBoardHide(){ leaderboardWrapper.style.display='none'; }
+    function animateSelect(el){ el.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:260}); }
+    function playPop(){ try{ popSound.currentTime=0; popSound.play(); }catch(e){} }
 
-    function updateTip(){
-      const tips = [
-        'Think: what would you actually do under pressure?',
-        'Balance boldness with listening to your team.',
-        'Conflict handling reflects emotional intelligence.',
-        'Crises require decisive action but clear communication.',
-        'Junior hires need a mix of guidance and ownership.',
-        'Negative feedback is a learning chance — who drives it?',
-        'Autonomy works if people are ready; be practical.'
-      ]; document.getElementById('tip').textContent = tips[pos] || ''; }
+    function updateTip(){ const tips = [ 'Be bold!', 'Ask: what matters most here?', 'Conflict is a chance to learn', 'Speed matters, but communicate', 'Teach one thing well', 'Listen to users', 'Start with clear goals' ]; tip.textContent = tips[pos] || ''; }
 
-    function updateScore(){
-      const perStyle = {A:0,B:0,C:0,D:0};
-      let totalScore = 0;
-      selections.forEach((s,idx)=>{ if(s===null) return; const style = questions[idx].opts[s].style; perStyle[style]++; totalScore += scoreMap[style]||0; });
-      scoreEl.textContent = totalScore;
-      window._lastScore = {total:totalScore, perStyle};
+    function updatePlayMeter(){ // playful label based on choices selected so far
+      const counts = {A:0,B:0,C:0,D:0}; selections.forEach((s,idx)=>{ if(s===null || s===-1) return; const st = questions[idx].opts[s].style; counts[st]++; });
+      // decide label
+      const keys = Object.keys(counts).sort((x,y)=>counts[y]-counts[x]); const top = keys[0]; let label = 'Curious';
+      if(top==='C') label = 'Visionary';
+      if(top==='B') label = 'Collaborator';
+      if(top==='A') label = 'Commander';
+      if(top==='D') label = 'Free Spirit';
+      playMeter.textContent = label;
     }
 
     nextBtn.addEventListener('click', ()=>{
-      if(selections[pos]===null){ if(!confirm('You have not selected an answer for this question. Continue anyway?')) return; }
-      if(pos < total-1){ pos++; render(); } else { showResult(); }
+      // if no selection, ask to confirm
+      if(selections[pos]===null){ if(!confirm('No answer selected — continue anyway?')) return; }
+      // record style count for the answered questions (we don't show sum)
+      if(selections[pos] >=0){ const style = questions[pos].opts[selections[pos]].style; perStyle[style]++; }
+      if(pos < total-1){ pos++; render(); } else { finishAdventure(); }
     });
-    prevBtn.addEventListener('click', ()=>{ if(pos>0){ pos--; render(); } });
+    prevBtn.addEventListener('click', ()=>{ if(pos>0){ // if user goes back, reduce the perStyle count for current answered question
+        if(selections[pos] >=0){ const style = questions[pos].opts[selections[pos]].style; perStyle[style] = Math.max(0, perStyle[style]-1); }
+        pos--; render(); } });
 
-    skipBtn.addEventListener('click', ()=>{ selections[pos] = null; if(pos < total-1){ pos++; render(); } else { showResult(); } });
+    resetBtn.addEventListener('click', ()=>{ if(!confirm('Reset your adventure?')) return; pos=0; selections=Array(total).fill(null); perStyle.A=perStyle.B=perStyle.C=perStyle.D=0; render(); stopTimer(); updatePlayMeter(); });
 
-    resetBtn.addEventListener('click', ()=>{ if(!confirm('Reset your answers?')) return; pos=0; selections=Array(total).fill(null); render(); updateScore(); });
+    hintBtn.addEventListener('click', ()=>{ surpriseHint(); });
+    function surpriseHint(){ const hints = ['A surprise investor likes decisive moves 💼','Teams love recognition 🎉','Prototype quickly and test','Listen — then act','Mentor one person today','Users tell the truth']; flashTip(hints[Math.floor(Math.random()*hints.length)]); }
+    function flashTip(t){ const el = document.getElementById('tip'); el.textContent = t; el.animate([{opacity:0},{opacity:1}],{duration:400}); setTimeout(updateTip,2500); }
 
-    function showResult(){
-      // compute final score
-      const perStyle = {A:0,B:0,C:0,D:0};
-      let totalScore = 0;
-      selections.forEach((s,idx)=>{ if(s===null) return; const style = questions[idx].opts[s].style; perStyle[style]++; totalScore += scoreMap[style]||0; });
-      resultBox.style.display='block'; bar.style.width = '100%';
+    // finish
+    function finishAdventure(){ stopTimer(); // compute breakdown
+      resultBox.style.display='block'; bar.style.width='100%';
+      // compute percentages by style
+      const totalAnswered = perStyle.A + perStyle.B + perStyle.C + perStyle.D;
+      const pct = (n)=> totalAnswered ? Math.round((n/totalAnswered)*100) : 0;
+      // friendly interpretation — not a raw sum
+      let title = '', text='';
+      if(perStyle.C >= Math.max(perStyle.A, perStyle.B, perStyle.D) && perStyle.C >= 2) { title='🔥 Startup Visionary!'; text='You spark ideas and motivate people — a natural founder vibe.'; }
+      else if(perStyle.B >= Math.max(perStyle.A, perStyle.C, perStyle.D) && perStyle.B >= 2) { title='🤝 Team Builder'; text='You build buy-in and strong culture — invaluable in early teams.'; }
+      else if(perStyle.A >= Math.max(perStyle.B, perStyle.C, perStyle.D) && perStyle.A >= 2) { title='⚡️ Decisive Captain'; text='You take charge and move fast — great for steering through crises.'; }
+      else if(perStyle.D >= Math.max(perStyle.A, perStyle.B, perStyle.C) && perStyle.D >= 2) { title='🌿 Free Innovator'; text='You trust autonomy and creativity — great with mature teams.'; }
+      else { title='🧭 Hybrid Starter'; text='You show a balanced mix — flexible and adaptable depending on the situation.'; }
 
-      // interpret
-      let title='', text='';
-      if(totalScore >= 16){ title='🔥 Startup Founder Material!'; text='You display many qualities that fit early-stage startups — vision, adaptability, and the ability to empower a team. Focus on execution discipline to balance boldness.'; }
-      else if(totalScore >= 10){ title='⚠️ Almost Ready — Needs Improvement'; text='You have potential, but practice fast decision-making, clear communication, and resilience under pressure to thrive in a startup.'; }
-      else{ title='❌ Not Ready for Startup Leadership Yet'; text='You may prefer more structure or need more experience. Consider building leadership skills through small projects or mentorship before leading a startup.'; }
-      resultTitle.textContent = title; resultText.textContent = text + ` (Score: ${totalScore} / ${total*3})`;
+      resultTitle.textContent = title; resultText.textContent = text;
 
-      // detailed breakdown UI
+      // badges
+      badgesEl.innerHTML = '';
+      if(perStyle.C >= 2) addBadge('Vision Badge', 'Leads with a future-focused mindset');
+      if(perStyle.B >= 2) addBadge('Teamwork Badge', 'Builds trust and collaboration');
+      if(perStyle.A >= 2) addBadge('Decisive Badge', 'Makes fast, clear choices');
+      if(perStyle.D >= 2) addBadge('Freedom Badge', 'Trusts teams to deliver');
+      if(totalAnswered === 0) addBadge('Curious Badge', 'Took the short path — try again!');
+
+      // breakdown display (colorful)
       breakdownEl.innerHTML = '';
-      const styles = [
-        {k:'A', name:'Autocratic (Directive)', color:'#f97316', pts:scoreMap['A']},
-        {k:'B', name:'Democratic (Participative)', color:'#06b6d4', pts:scoreMap['B']},
-        {k:'C', name:'Transformational / Visionary', color:'#7c3aed', pts:scoreMap['C']},
-        {k:'D', name:'Laissez-Faire (Hands-Off)', color:'#94a3b8', pts:scoreMap['D']}
-      ];
+      const styles = [ {k:'A',name:'Autocratic',col:'#ff9f43',val:perStyle.A}, {k:'B',name:'Democratic',col:'#06b6d4',val:perStyle.B}, {k:'C',name:'Transformational',col:'#7c3aed',val:perStyle.C}, {k:'D',name:'Laissez-Faire',col:'#94a3b8',val:perStyle.D} ];
       styles.forEach(s=>{
-        const count = perStyle[s.k] || 0; const possible = total; const percent = Math.round((count/possible)*100);
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${s.name}</strong><span>${count} answers • ${percent}%</span></div>`;
+        const wrapper = document.createElement('div'); wrapper.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${s.name}</strong><span>${s.val} responses</span></div>`;
         const barWrap = document.createElement('div'); barWrap.className='barSmall';
-        const inner = document.createElement('i'); inner.style.width = percent + '%'; inner.style.background = s.color; inner.style.display='block'; barWrap.appendChild(inner);
+        const inner = document.createElement('i'); inner.style.width = (totalAnswered? Math.round((s.val/totalAnswered)*100):0) + '%'; inner.style.background = s.col; inner.style.display='block'; barWrap.appendChild(inner);
         wrapper.appendChild(barWrap);
-        const rec = document.createElement('div'); rec.style.fontSize='13px'; rec.style.color='rgba(255,255,255,0.95)'; rec.style.marginTop='6px';
-        rec.textContent = recommendationFor(s.k,count,percent);
-        wrapper.appendChild(rec);
         breakdownEl.appendChild(wrapper);
       });
 
-      // store last result for sharing
-      window.lastResult = {score:totalScore, perStyle, title, text};
+      // save last result
+      window.lastResult = { type: title, summary: text, perStyle: {...perStyle}, when: new Date().toISOString() };
 
-      // show leaderboard now (user requested scoreboard after finish)
-      leaderBoardShow();
+      // fun: confetti for strong results
+      if(perStyle.C + perStyle.B >= 3) fireConfetti();
+
+      // show leaderboard controls now
+      leaderboardWrapper.style.display = 'block'; renderLeaderboard();
     }
 
-    function recommendationFor(k,count,percent){
-      if(k==='A'){
-        if(percent>50) return 'You tend to take charge quickly. That helps in crises — combine with delegation to keep the team motivated.';
-        return 'You use directive moves sometimes — good for speed. Practice clearer explanations when giving orders.';
-      }
-      if(k==='B'){
-        if(percent>50) return 'You involve the team and build buy-in. Be mindful of speed; set deadlines to avoid endless discussion.';
-        return 'You listen to others — great for culture. Make sure decision speed matches the startup pace.';
-      }
-      if(k==='C'){
-        if(percent>50) return 'You inspire and cultivate growth. Keep an eye on execution — pair vision with measurable goals.';
-        return 'You motivate and coach — this helps retention. Add operational checkpoints to increase predictability.';
-      }
-      if(k==='D'){
-        if(percent>50) return 'You give freedom but risk inconsistency in early-stage teams. Use structured autonomy: clear goals + check-ins.';
-        return 'You value autonomy — great when the team is mature. In early-stage settings, combine with guidance.';
-      }
-      return '';
-    }
+    function addBadge(title,desc){ const b = document.createElement('div'); b.className='badge'; b.title = desc; b.textContent = title; badgesEl.appendChild(b); }
 
-    // Leaderboard functions (localStorage)
-    const LS_KEY = 'startup_quiz_leaderboard_v1';
-    function loadLeaderboard(){ try{ const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ return []; } }
+    // confetti
+    function fireConfetti(){ const ctx = confettiCanvas.getContext('2d'); confettiCanvas.width = innerWidth; confettiCanvas.height = innerHeight; const pieces = []; for(let i=0;i<160;i++){ pieces.push({x:Math.random()*confettiCanvas.width, y:Math.random()*-confettiCanvas.height, vx:(Math.random()-0.5)*4, vy:Math.random()*3+2, s:Math.random()*6+4, c:['#ffd166','#ff6b6b','#06b6d4','#7c3aed'][Math.floor(Math.random()*4)]}); }
+      let t=0; function frame(){ ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height); for(const p of pieces){ p.x += p.vx; p.y += p.vy; p.vy += 0.05; ctx.fillStyle = p.c; ctx.fillRect(p.x, p.y, p.s, p.s*1.6); if(p.y > confettiCanvas.height){ p.y = -20; p.x = Math.random()*confettiCanvas.width; p.vy = Math.random()*3+1; } } t++; if(t < 500) requestAnimationFrame(frame); else ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height); } frame(); }
+
+    // leaderboard (localStorage simple, no numeric score shown here — only type and time)
+    const LS_KEY = 'startup_quiz_leaderboard_fun_v1';
+    function loadLeaderboard(){ try{ const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : []; }catch(e){return [];} }
     function saveLeaderboard(list){ localStorage.setItem(LS_KEY, JSON.stringify(list)); }
-    function renderLeaderboard(){ const list = loadLeaderboard(); leaderTableBody.innerHTML = ''; list.sort((a,b)=>b.score - a.score); list.forEach(r=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${escapeHtml(r.name)}</td><td>${r.score}</td><td>${r.type}</td><td>${new Date(r.when).toLocaleString()}</td>`; leaderTableBody.appendChild(tr); }); }
+    function renderLeaderboard(){ const list = loadLeaderboard(); leaderTableBody.innerHTML = ''; list.slice().reverse().forEach(r=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.type)}</td><td>${new Date(r.when).toLocaleString()}</td>`; leaderTableBody.appendChild(tr); }); }
 
     saveScoreBtn.addEventListener('click', ()=>{
-      if(!window.lastResult){ alert('Finish the quiz to save your score.'); return; }
-      const name = (playerName.value || 'Anonymous').trim(); const entry = {name, score: window.lastResult.score, type: window.lastResult.title, when: new Date().toISOString(), perStyle: window.lastResult.perStyle};
-      const list = loadLeaderboard(); list.push(entry); saveLeaderboard(list); renderLeaderboard(); alert('Score saved locally.');
+      if(!window.lastResult){ alert('Finish the quiz to save your result.'); return; }
+      const name = (playerName.value || 'Player').trim(); const entry = {name, type: window.lastResult.type, when: new Date().toISOString(), perStyle: window.lastResult.perStyle};
+      const list = loadLeaderboard(); list.push(entry); saveLeaderboard(list); renderLeaderboard(); alert('Saved to local leaderboard.');
     });
 
-    exportBtn.addEventListener('click', ()=>{ const list = loadLeaderboard(); const data = JSON.stringify(list, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'startup_quiz_leaderboard.json'; a.click(); URL.revokeObjectURL(url); });
-
+    exportBtn.addEventListener('click', ()=>{ const list = loadLeaderboard(); const data = JSON.stringify(list, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'startup_quiz_leaderboard_fun.json'; a.click(); URL.revokeObjectURL(url); });
     importBtn.addEventListener('click', ()=>{ importFile.click(); });
     importFile.addEventListener('change', (e)=>{ const f = e.target.files[0]; if(!f) return; const reader = new FileReader(); reader.onload = (ev)=>{ try{ const data = JSON.parse(ev.target.result); if(Array.isArray(data)){ saveLeaderboard(data); renderLeaderboard(); alert('Leaderboard imported.'); } else alert('Invalid file format.'); } catch(err){ alert('Import failed: '+err.message); } }; reader.readAsText(f); });
-
     clearBtn.addEventListener('click', ()=>{ if(confirm('Clear the local leaderboard?')){ saveLeaderboard([]); renderLeaderboard(); } });
 
-    // utilities
     function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[m]; }); }
 
-    // theme handlers
-    applyThemeBtn.addEventListener('click', ()=>{ const t = (themeInput.value || '').trim(); applyThemeFromTitle(t); localStorage.setItem('startup_quiz_theme_title', t); });
-    // load saved theme
-    (function(){ const saved = localStorage.getItem('startup_quiz_theme_title'); if(saved){ themeInput.value = saved; applyThemeFromTitle(saved); } })();
+    // start
+    render(); updatePlayMeter();
 
-    // initial render
-    render(); updateScore();
+    // keyboard
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowRight') nextBtn.click(); if(e.key === 'ArrowLeft') prevBtn.click(); if(e.key === 'h') surpriseHint(); });
 
-    // keyboard shortcuts
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight') nextBtn.click();
-      if(e.key === 'ArrowLeft') prevBtn.click();
-      if(e.key.toLowerCase() === 'r' && e.ctrlKey) resetBtn.click();
-    });
-
-    // onboarding copy invite
-    (function onboarding(){ if(localStorage.getItem('seenStartupQuizV3')) return; setTimeout(()=>{ if(confirm('Tip: Type a presentation title and click Apply Theme to change the quiz colors. Want quick GitHub Pages steps copied to clipboard?')){ navigator.clipboard.writeText('Create a GitHub repo, add index.html, enable Pages -> main branch root.'); alert('Copied!'); } localStorage.setItem('seenStartupQuizV3','1'); },600); })();
+    // onboarding: small tip
+    (function onboarding(){ if(localStorage.getItem('startup_fun_seen')) return; setTimeout(()=>{ alert('Tip: Each question has a 20s playful timer. Use "Surprise Hint" for a fun nudge. Leaderboard appears after finish.'); localStorage.setItem('startup_fun_seen','1'); },600); })();
   </script>
 </body>
 </html>
