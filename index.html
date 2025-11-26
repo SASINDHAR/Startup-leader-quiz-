@@ -4,41 +4,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Are You Ready to Start a Startup? — Leadership Quiz</title>
+  <title>Are You Ready to Start a Startup? — Leadership Quiz (Full Updated)</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(135deg,#071029 0%, #081424 40%, #03121a 100%);}
-    .wrap{max-width:980px;margin:32px auto;padding:24px}
-    header{display:flex;align-items:center;gap:16px}
-    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;box-shadow:0 6px 20px rgba(5,8,15,0.6)}
-    h1{font-size:22px;margin:0}
-    p.lead{color:var(--muted);margin:6px 0 20px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    :root{--bg:#071029;--card:#071625;--accent:#7c3aed;--accent2:#06b6d4;--muted:#9aa4b2;--glass: rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(135deg,#031029 0%, #041624 50%, #02121a 100%);}
+    .wrap{max-width:980px;margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;box-shadow:0 6px 20px rgba(5,8,15,0.6)}
+    h1{font-size:20px;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
 
-    .question-area{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .question-area{display:grid;grid-template-columns:1fr 320px;gap:18px}
     .qbox{padding:12px;border-radius:10px;background:var(--card)}
     .options{display:flex;flex-direction:column;gap:10px;margin-top:12px}
     .opt{background:var(--glass);padding:12px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.02);transition:transform .12s ease,box-shadow .12s}
     .opt:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(12,18,40,0.5)}
-    .opt.active{outline:2px solid rgba(124,58,237,0.18);box-shadow:0 10px 30px rgba(124,58,237,0.08)}
-    .meta{color:var(--muted);font-size:14px;margin-top:8px}
+    .opt.active{outline:2px solid rgba(124,58,237,0.14);box-shadow:0 10px 30px rgba(124,58,237,0.06)}
+    .meta{color:var(--muted);font-size:13px;margin-top:8px}
 
     .side{position:relative}
     .progress{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden;margin-bottom:12px}
-    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#06b6d4)}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;font-weight:600;border:none;cursor:pointer}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;font-weight:600;border:none;cursor:pointer}
     .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
 
-    .result{padding:14px;border-radius:12px;margin-top:12px;background:linear-gradient(180deg, rgba(124,58,237,0.08), rgba(6,182,212,0.02));color:#f8fbff}
+    .result{padding:14px;border-radius:12px;margin-top:12px;background:linear-gradient(180deg, rgba(124,58,237,0.06), rgba(6,182,212,0.02));color:#f8fbff}
     .result h2{margin:0 0 6px}
+    .breakdown{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+    .barSmall{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .barSmall > i{display:block;height:100%}
 
-    footer{color:var(--muted);font-size:13px;margin-top:18px;text-align:center}
+    .leader{margin-top:12px}
+    .leader table{width:100%;border-collapse:collapse}
+    .leader th, .leader td{padding:8px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:13px}
 
-    /* responsive */
+    footer{color:var(--muted);font-size:13px;margin-top:16px;text-align:center}
+
     @media (max-width:880px){.question-area{grid-template-columns:1fr;}.side{order:2}.wrap{padding:12px}}
-
-    /* playful confetti */
-    .confetti{position:fixed;pointer-events:none;inset:0;z-index:40}
   </style>
 </head>
 <body>
@@ -46,8 +50,8 @@
     <header>
       <div class="logo">SL</div>
       <div>
-        <h1>Are You Ready to Start a Startup?</h1>
-        <p class="lead">A quick, fun quiz that links leadership choices to startup readiness. Use during workshops or GitHub Pages demos.</p>
+        <h1>Are You Ready to Start a Startup? — Leadership Quiz</h1>
+        <p class="lead">Interactive quiz with detailed final scoring, breakdown, and a local leaderboard. Drop into GitHub Pages to share with students.</p>
       </div>
     </header>
 
@@ -57,18 +61,21 @@
           <div class="meta">Question <span id="qnum">1</span> of <span id="qtot">7</span></div>
           <h3 id="question" style="margin-top:8px">Loading...</h3>
           <div class="options" id="options"></div>
-          <div style="display:flex;gap:10px;margin-top:14px">
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
             <button class="btn" id="nextBtn">Next</button>
-            <button class="btn secondary" id="resetBtn">Reset</button>
+            <button class="btn secondary small" id="prevBtn">Previous</button>
+            <button class="btn secondary small" id="resetBtn">Reset</button>
+            <button class="btn secondary small" id="skipBtn">Skip (mark as neutral)</button>
           </div>
         </div>
 
         <div class="side">
-          <div class="progress"><div class="bar" id="bar"></div></div>
+          <div class="progress" title="Progress"><div class="bar" id="bar"></div></div>
+
           <div class="card" style="padding:12px;margin-bottom:12px;">
-            <strong>Score:</strong>
+            <strong>Score (sum):</strong>
             <div style="font-size:22px;margin-top:8px" id="score">0</div>
-            <div class="meta">Higher = better fit for early-stage leadership</div>
+            <div class="meta">Higher sum indicates stronger fit for early-stage leadership</div>
           </div>
 
           <div id="hint" class="card" style="padding:12px;">
@@ -79,20 +86,34 @@
           <div id="resultBox" style="display:none" class="result">
             <h2 id="resultTitle">Result</h2>
             <p id="resultText"></p>
-            <div style="margin-top:8px;display:flex;gap:8px">
-              <button class="btn" id="shareBtn">Copy Result</button>
-              <button class="btn secondary" id="downloadBtn">Download PDF</button>
+
+            <div class="breakdown" id="breakdown"></div>
+
+            <div class="leader">
+              <strong>Local leaderboard</strong>
+              <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+                <input id="playerName" placeholder="Your name" class="small" style="flex:1" />
+                <button class="btn small" id="saveScoreBtn">Save Score</button>
+              </div>
+              <div style="margin-top:8px;">
+                <table id="leaderTable"><thead><tr><th>Name</th><th>Score</th><th>Type</th><th>When</th></tr></thead><tbody></tbody></table>
+              </div>
+              <div style="margin-top:8px;display:flex;gap:8px">
+                <button class="btn secondary small" id="exportBtn">Export JSON</button>
+                <button class="btn secondary small" id="importBtn">Import JSON</button>
+                <input type="file" id="importFile" style="display:none" accept="application/json" />
+                <button class="btn secondary small" id="clearBtn">Clear Leaderboard</button>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
 
       <footer>
-        Built for workshops • Drop this file into a GitHub repo and activate Pages to share.
+        Built for workshops • Drop this file into a GitHub repo and enable Pages to share.
       </footer>
     </div>
-
-    <canvas class="confetti" id="confettiCanvas"></canvas>
   </div>
 
   <script>
@@ -154,20 +175,29 @@
 
     let pos = 0; const total = questions.length; let selections = Array(total).fill(null);
 
+    // DOM refs
     const qnum = document.getElementById('qnum');
     const qtot = document.getElementById('qtot'); qtot.textContent = total;
     const questionEl = document.getElementById('question');
     const optionsEl = document.getElementById('options');
     const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
     const resetBtn = document.getElementById('resetBtn');
+    const skipBtn = document.getElementById('skipBtn');
     const bar = document.getElementById('bar');
     const scoreEl = document.getElementById('score');
     const resultBox = document.getElementById('resultBox');
     const resultTitle = document.getElementById('resultTitle');
     const resultText = document.getElementById('resultText');
-    const tip = document.getElementById('tip');
-    const shareBtn = document.getElementById('shareBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
+    const breakdownEl = document.getElementById('breakdown');
+
+    const playerName = document.getElementById('playerName');
+    const saveScoreBtn = document.getElementById('saveScoreBtn');
+    const leaderTableBody = document.querySelector('#leaderTable tbody');
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+    const importFile = document.getElementById('importFile');
+    const clearBtn = document.getElementById('clearBtn');
 
     function render(){
       qnum.textContent = pos+1;
@@ -182,86 +212,135 @@
         optionsEl.appendChild(div);
       });
       bar.style.width = `${(pos/total)*100}%`;
-      nextBtn.disabled = false;
       resultBox.style.display='none';
       updateTip();
     }
 
     function updateTip(){
       const tips = [
-        'Quick: think about how you naturally react under pressure.',
-        'Balance vision and pragmatism — what would you actually do?',
-        'Conflict is a test of emotional intelligence — choose honestly.',
-        'Crisis questions reveal speed vs. consensus tradeoffs.',
-        'Consider mentorship vs micromanagement for new hires.',
-        'Negative feedback requires learning — which style helps most?',
-        'Autonomy is great if people are ready — be realistic.'
+        'Think: what would you actually do under pressure?',
+        'Balance boldness with listening to your team.',
+        'Conflict handling reflects emotional intelligence.',
+        'Crises require decisive action but clear communication.',
+        'Junior hires need a mix of guidance and ownership.',
+        'Negative feedback is a learning chance — who drives it?',
+        'Autonomy works if people are ready; be practical.'
       ]; tip.textContent = tips[pos] || '';
     }
 
     function updateScore(){
-      const totalScore = selections.reduce((acc,s,idx)=>{ if(s===null) return acc; const style = questions[idx].opts[s].style; return acc + (scoreMap[style]||0);},0);
+      const perStyle = {A:0,B:0,C:0,D:0};
+      let totalScore = 0;
+      selections.forEach((s,idx)=>{ if(s===null) return; const style = questions[idx].opts[s].style; perStyle[style]++; totalScore += scoreMap[style]||0; });
       scoreEl.textContent = totalScore;
+      window._lastScore = {total:totalScore, perStyle};
     }
 
     nextBtn.addEventListener('click', ()=>{
-      if(selections[pos]===null){ alert('Please choose an option to continue — there are no wrong answers!'); return; }
+      if(selections[pos]===null){ if(!confirm('You have not selected an answer for this question. Continue anyway?')) return; }
       if(pos < total-1){ pos++; render(); } else { showResult(); }
     });
+    prevBtn.addEventListener('click', ()=>{ if(pos>0){ pos--; render(); } });
+
+    skipBtn.addEventListener('click', ()=>{ selections[pos] = null; if(pos < total-1){ pos++; render(); } else { showResult(); } });
 
     resetBtn.addEventListener('click', ()=>{ if(!confirm('Reset your answers?')) return; pos=0; selections=Array(total).fill(null); render(); updateScore(); });
 
     function showResult(){
       // compute final score
-      const totalScore = selections.reduce((acc,s,idx)=>{ const style = questions[idx].opts[s].style; return acc + (scoreMap[style]||0); },0);
-      resultBox.style.display='block';
-      bar.style.width = '100%';
+      const perStyle = {A:0,B:0,C:0,D:0};
+      let totalScore = 0;
+      selections.forEach((s,idx)=>{ if(s===null) return; const style = questions[idx].opts[s].style; perStyle[style]++; totalScore += scoreMap[style]||0; });
+      resultBox.style.display='block'; bar.style.width = '100%';
+
       // interpret
       let title='', text='';
-      if(totalScore >= 16){ title='🔥 Startup Founder Material!'; text='You display many qualities that fit early-stage startups — vision, adaptability and the ability to empower a team. Focus on execution discipline to balance boldness.'; fireConfetti(); }
+      if(totalScore >= 16){ title='🔥 Startup Founder Material!'; text='You display many qualities that fit early-stage startups — vision, adaptability, and the ability to empower a team. Focus on execution discipline to balance boldness.'; }
       else if(totalScore >= 10){ title='⚠️ Almost Ready — Needs Improvement'; text='You have potential, but practice fast decision-making, clear communication, and resilience under pressure to thrive in a startup.'; }
-      else{ title='❌ Not Ready for Startup Leadership Yet'; text='You may prefer structure or need more experience. Consider building leadership skills through small projects or mentorship before leading a startup.'; }
+      else{ title='❌ Not Ready for Startup Leadership Yet'; text='You may prefer more structure or need more experience. Consider building leadership skills through small projects or mentorship before leading a startup.'; }
       resultTitle.textContent = title; resultText.textContent = text + ` (Score: ${totalScore} / ${total*3})`;
-      // save summary for sharing
-      window.lastResult = {score:totalScore,title, text};
+
+      // detailed breakdown UI
+      breakdownEl.innerHTML = '';
+      const styles = [
+        {k:'A', name:'Autocratic (Directive)', color:'#f97316', pts:scoreMap['A']},
+        {k:'B', name:'Democratic (Participative)', color:'#06b6d4', pts:scoreMap['B']},
+        {k:'C', name:'Transformational / Visionary', color:'#7c3aed', pts:scoreMap['C']},
+        {k:'D', name:'Laissez-Faire (Hands-Off)', color:'#94a3b8', pts:scoreMap['D']}
+      ];
+      styles.forEach(s=>{
+        const count = perStyle[s.k] || 0; const possible = total; const percent = Math.round((count/possible)*100);
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${s.name}</strong><span>${count} answers • ${percent}%</span></div>`;
+        const barWrap = document.createElement('div'); barWrap.className='barSmall';
+        const inner = document.createElement('i'); inner.style.width = percent + '%'; inner.style.background = s.color; inner.style.display='block'; barWrap.appendChild(inner);
+        wrapper.appendChild(barWrap);
+        const rec = document.createElement('div'); rec.style.fontSize='13px'; rec.style.color='rgba(255,255,255,0.85)'; rec.style.marginTop='6px';
+        rec.textContent = recommendationFor(s.k,count,percent);
+        wrapper.appendChild(rec);
+        breakdownEl.appendChild(wrapper);
+      });
+
+      // store last result for sharing
+      window.lastResult = {score:totalScore, perStyle, title, text};
     }
 
-    // share: copy to clipboard
-    shareBtn.addEventListener('click', ()=>{
-      if(!window.lastResult){ alert('Finish the quiz first.'); return; }
-      const txt = `I took the Startup Leadership Quiz — ${window.lastResult.title} (Score: ${window.lastResult.score}/${total*3})\n${window.lastResult.text}`;
-      navigator.clipboard.writeText(txt).then(()=>{ alert('Result copied to clipboard — paste it anywhere to share!'); }).catch(()=>{ alert('Unable to copy automatically — select and copy manually.'); });
-    });
-
-    // download simple PDF via print window
-    downloadBtn.addEventListener('click', ()=>{
-      if(!window.lastResult){ alert('Finish the quiz first.'); return; }
-      const w = window.open('','_blank');
-      w.document.write(`<pre style="font-family:Inter,Arial;white-space:pre-wrap">Startup Leadership Quiz Result\n\n${window.lastResult.title}\nScore: ${window.lastResult.score}/${total*3}\n\n${window.lastResult.text}\n\nTaken: ${new Date().toLocaleString()}</pre>`);
-      w.document.title = 'Startup Quiz Result'; w.print();
-    });
-
-    // simple confetti
-    function fireConfetti(){
-      const canvas = document.getElementById('confettiCanvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = innerWidth; canvas.height = innerHeight; let conf = [];
-      for(let i=0;i<140;i++) conf.push({x:Math.random()*canvas.width, y:Math.random()*-canvas.height, r:Math.random()*6+2, dx:(Math.random()-0.5)*2, dy: Math.random()*3+1, col: ['#7c3aed','#06b6d4','#f97316','#f43f5e'][Math.floor(Math.random()*4)]});
-      let t=0; function frame(){ ctx.clearRect(0,0,canvas.width,canvas.height); conf.forEach(p=>{ p.x += p.dx; p.y += p.dy + Math.sin(t/10+p.x/100)*0.5; ctx.fillStyle = p.col; ctx.fillRect(p.x,p.y,p.r,p.r*1.8); if(p.y>canvas.height){ p.y = -20; p.x = Math.random()*canvas.width; } }); t+=1; if(t<400) requestAnimationFrame(frame); else ctx.clearRect(0,0,canvas.width,canvas.height); }
-      frame();
+    function recommendationFor(k,count,percent){
+      if(k==='A'){
+        if(percent>50) return 'You tend to take charge quickly. That helps in crises — combine with delegation to keep the team motivated.';
+        return 'You use directive moves sometimes — good for speed. Practice clearer explanations when giving orders.';
+      }
+      if(k==='B'){
+        if(percent>50) return 'You involve the team and build buy-in. Be mindful of speed; set deadlines to avoid endless discussion.';
+        return 'You listen to others — great for culture. Make sure decision speed matches the startup pace.';
+      }
+      if(k==='C'){
+        if(percent>50) return 'You inspire and cultivate growth. Keep an eye on execution — pair vision with measurable goals.';
+        return 'You motivate and coach — this helps retention. Add operational checkpoints to increase predictability.';
+      }
+      if(k==='D'){
+        if(percent>50) return 'You give freedom but risk inconsistency in early-stage teams. Use structured autonomy: clear goals + check-ins.';
+        return 'You value autonomy — great when the team is mature. In early-stage settings, combine with guidance.';
+      }
+      return '';
     }
+
+    // Leaderboard functions (localStorage)
+    const LS_KEY = 'startup_quiz_leaderboard_v1';
+    function loadLeaderboard(){
+      try{ const raw = localStorage.getItem(LS_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ return []; }
+    }
+    function saveLeaderboard(list){ localStorage.setItem(LS_KEY, JSON.stringify(list)); }
+    function renderLeaderboard(){ const list = loadLeaderboard(); leaderTableBody.innerHTML = ''; list.sort((a,b)=>b.score - a.score); list.forEach(r=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${escapeHtml(r.name)}</td><td>${r.score}</td><td>${r.type}</td><td>${new Date(r.when).toLocaleString()}</td>`; leaderTableBody.appendChild(tr); }); }
+
+    saveScoreBtn.addEventListener('click', ()=>{
+      if(!window.lastResult){ alert('Finish the quiz to save your score.'); return; }
+      const name = (playerName.value || 'Anonymous').trim(); const entry = {name, score: window.lastResult.score, type: window.lastResult.title, when: new Date().toISOString(), perStyle: window.lastResult.perStyle};
+      const list = loadLeaderboard(); list.push(entry); saveLeaderboard(list); renderLeaderboard(); alert('Score saved locally.');
+    });
+
+    exportBtn.addEventListener('click', ()=>{ const list = loadLeaderboard(); const data = JSON.stringify(list, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'startup_quiz_leaderboard.json'; a.click(); URL.revokeObjectURL(url); });
+
+    importBtn.addEventListener('click', ()=>{ importFile.click(); });
+    importFile.addEventListener('change', (e)=>{ const f = e.target.files[0]; if(!f) return; const reader = new FileReader(); reader.onload = (ev)=>{ try{ const data = JSON.parse(ev.target.result); if(Array.isArray(data)){ saveLeaderboard(data); renderLeaderboard(); alert('Leaderboard imported.'); } else alert('Invalid file format.'); } catch(err){ alert('Import failed: '+err.message); } }; reader.readAsText(f); });
+
+    clearBtn.addEventListener('click', ()=>{ if(confirm('Clear the local leaderboard?')){ saveLeaderboard([]); renderLeaderboard(); } });
+
+    // utilities
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
 
     // initial render
-    render();
+    render(); renderLeaderboard(); updateScore();
 
-    // small accessibility: keyboard nav
+    // keyboard shortcuts
     document.addEventListener('keydown', (e)=>{
       if(e.key === 'ArrowRight') nextBtn.click();
-      if(e.key === 'r' && e.ctrlKey) resetBtn.click();
+      if(e.key === 'ArrowLeft') prevBtn.click();
+      if(e.key.toLowerCase() === 'r' && e.ctrlKey) resetBtn.click();
     });
 
-    // friendly onboarding modal (small) -- show only first time via localStorage
-    (function onboarding(){ if(localStorage.getItem('seenStartupQuiz')) return; setTimeout(()=>{ if(confirm('Tip: This single-file game is ready for GitHub Pages. Want quick deployment steps copied to clipboard?')){ navigator.clipboard.writeText('Create a GitHub repo, add index.html, enable Pages -> main branch root.'); alert('Copied!'); } localStorage.setItem('seenStartupQuiz','1'); },800); })();
+    // onboarding copy invite
+    (function onboarding(){ if(localStorage.getItem('seenStartupQuizV2')) return; setTimeout(()=>{ if(confirm('This updated quiz now saves a local leaderboard. Want quick GitHub Pages steps copied to clipboard?')){ navigator.clipboard.writeText('Create a GitHub repo, add index.html, enable Pages -> main branch root.'); alert('Copied!'); } localStorage.setItem('seenStartupQuizV2','1'); },600); })();
   </script>
 </body>
 </html>
